@@ -14,5 +14,3 @@ The aim of this package is to make life easier for anyone writing research artic
 - Create functions to quickly and easily search the `data.table` for citations and add them to a bibliography.
 
 ## Ideas
-
-
