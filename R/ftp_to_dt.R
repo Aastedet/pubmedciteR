@@ -67,11 +67,25 @@ rm(articles, xml_list)
 
 tic()
 unnested_data <-
-  articles_data %>%
+  suppressMessages(articles_data %>%
       unnest_wider(col = everything(), names_repair = "unique", names_sep = "") %>%
       unnest_wider(col = everything(), names_repair = "unique", names_sep = "") %>%
       unnest_wider(col = everything(), names_repair = "unique", names_sep = "") %>%
       unnest_wider(col = everything(), names_repair = "unique", names_sep = "")
-toc()
-# Save intermediate output for further testing:
-saveRDS(unnested_data, sub(".xml", ".rds", local_xml))
+  )
+toc() # 7384.19 secs = 2 hours
+# Save intermediate output for further prototyping:
+saveRDS(unnested_data, sub(".xml", ".rds", local_xml)) # 2.3 MB disk space
+
+
+# Should be fairly straight-forward from here on:
+
+# 1: Convert to a data.table for faster wrangling
+# 2: Create string variables corresponding to elements of a bibtex entry
+# 3: Iterate over all .gz files in the ftp folder
+# 4: Bind rows of all files into a single data.table
+
+# 5: Save this data.table to disk
+# 6: Create function to write a specific row from the data.table to a bibliography-file with sink():
+
+# 7: User opens the data.table, runs the function on row(s) specified by ordinary filtering operations and writes bibliography on an as-needed basis.
